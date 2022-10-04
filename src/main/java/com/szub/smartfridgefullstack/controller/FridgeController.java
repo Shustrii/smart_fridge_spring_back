@@ -1,7 +1,6 @@
 package com.szub.smartfridgefullstack.controller;
 
 
-import com.szub.smartfridgefullstack.exeption.ResourceNotFoundException;
 import com.szub.smartfridgefullstack.model.Fridge;
 import com.szub.smartfridgefullstack.model.FridgeProduct;
 import com.szub.smartfridgefullstack.model.Products;
@@ -15,11 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/fridge/v1")
-public class FridgeController {
+public class    FridgeController {
 
     private SessionFactory sessionFactory;
 
@@ -59,8 +59,8 @@ public class FridgeController {
     }
 
     @GetMapping("/not_in_fridge")
-    public ResponseEntity<List<Products>> getNotInFridge() {
-        List<Products> list = fridgeService.getProductsNotInFridge();
+    public ResponseEntity<List<FridgeProduct>> getNotInFridge() {
+        List<FridgeProduct> list = fridgeService.getProductsNotInFridge(1);
         return ResponseEntity.ok(list);
     }
 
@@ -72,14 +72,37 @@ public class FridgeController {
         return fridgeRepository.save(fridge);
     }
 
+//    @GetMapping("/product/{id}")
+//    public ResponseEntity<List<FridgeProduct>> getProductById(@PathVariable Long id){
+////        FridgeProduct fridgeProduct = fridgeProductsRepository.findById(id)
+////                .orElseThrow(()-> new ResourceNotFoundException("Product not exist with id" + id));
+////        return ResponseEntity.ok(fridgeProduct);
+//        List<FridgeProduct> list = fridgeService.getProductById(Math.toIntExact(id));
+//        return  ResponseEntity.ok(list);
+//    }
+
+    @PutMapping("/product_quantity_update")
+    public int updateProduct(@RequestBody FridgeProduct fridgeProduct){
+        System.out.println("=====>>>> product_quantity_update >>>" + fridgeProduct);
+        int update = fridgeService.updateProduct(fridgeProduct.getFridge_id(), fridgeProduct.getProduct_id(), fridgeProduct.getQuantity());
+        System.out.println("=====>>>>" + fridgeProduct);
+        return update; //ResponseEntity.ok(update);
+    }
+
     @GetMapping("/product/{id}")
-    public ResponseEntity<List<FridgeProduct>> getProductById(@PathVariable Long id){
+    public ResponseEntity<FridgeProduct> getProductById(@PathVariable Long id){
 //        FridgeProduct fridgeProduct = fridgeProductsRepository.findById(id)
 //                .orElseThrow(()-> new ResourceNotFoundException("Product not exist with id" + id));
 //        return ResponseEntity.ok(fridgeProduct);
-        List<FridgeProduct> list = fridgeService.getProductById(Math.toIntExact(id));
+        FridgeProduct list = fridgeService.getProductById(Math.toIntExact(id));
         return  ResponseEntity.ok(list);
     }
 
+
+    @DeleteMapping("/delete_product_from_fridge")
+    public int deleteProductFromFridge(@RequestBody FridgeProduct fridgeProduct){
+        int list = fridgeService.deleteProductFromFr(fridgeProduct.getFridge_id(), fridgeProduct.getProduct_id());
+        return list;
+    }
 
 }

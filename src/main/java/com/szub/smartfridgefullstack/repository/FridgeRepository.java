@@ -17,8 +17,9 @@ public interface FridgeRepository extends JpaRepository<Fridge, Long> {
     @Query("SELECT new FridgeProduct(fp.fridge_id, fp.product_id, p.name, fp.quantity) FROM Products p inner join FridgeProduct fp on p.id = fp.product_id where fp.fridge_id = :id")
     List<FridgeProduct> fetchAllProductsInFridgeById(int id);
 
-    @Query(value = "SELECT p FROM Products p WHERE p.id not in (SELECT f.product_id FROM FridgeProduct f)")
-    List<Products> fetchProductsNotInFridge();
+    //@Query(value = "SELECT p FROM Products p WHERE p.id not in (SELECT f.product_id FROM FridgeProduct f where f.fridge_id=:id) ")
+    @Query(value = "SELECT new FridgeProduct(1, p.id, p.name, 0) FROM Products p WHERE p.id not in (SELECT f.product_id FROM FridgeProduct f where f.fridge_id=:id) ")
+    List<FridgeProduct> fetchProductsNotInFridge(int id);
 
     //@SQLInsert(sql = "INSERT INTO fridge_products (fridge_id, product_id, quantity) VALUES (fp)")
     //void fetchSaveInFridge(FridgeProduct fp);

@@ -45,13 +45,23 @@ public class FridgeService {
         return list;
     }
 
-    public List<Products> getProductsNotInFridge(){
-        List<Products> list = fridgeRepository.fetchProductsNotInFridge();
+    public List<FridgeProduct> getProductsNotInFridge(int id){
+        List<FridgeProduct> list = fridgeRepository.fetchProductsNotInFridge(id);
         return list;
     }
 
-    public List<FridgeProduct> getProductById(int id){
-        List<FridgeProduct> list = fridgeProductsRepository.fetchAllProductsById(id);
+    public FridgeProduct getProductById(int id){
+        FridgeProduct list = fridgeProductsRepository.fetchAllProductsById(id);
+        return list;
+    }
+
+    public int updateProduct(int fridgeId, int productId, int quantity ){
+        int updatePr = fridgeProductsRepository.updateProductToFridge(fridgeId,productId,quantity);
+        return updatePr;
+    }
+
+    public int deleteProductFromFr(int fridgeId, int productId){
+        int list = fridgeProductsRepository.deleteProductFromFridge(fridgeId,productId);
         return list;
     }
 

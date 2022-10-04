@@ -6,10 +6,11 @@ import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLInsert;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "fridge_products")
-@SQLInsert(sql = "INSERT INTO fridge_products(fridge_id, product_id, quantity) VALUES (?,?,?)", check= ResultCheckStyle.COUNT)
+@IdClass(FridgeProductId.class)
 public class FridgeProduct {
 
     private int fridge_id;
@@ -22,13 +23,6 @@ public class FridgeProduct {
     public FridgeProduct() {
     }
 
-    public FridgeProduct(int fridge_id, int product_id, int quantity) {
-        this.fridge_id = fridge_id;
-        this.product_id = product_id;
-        this.quantity = quantity;
-        System.out.println("+++constructor new");
-    }
-
     public FridgeProduct(int fridge_id, int product_id, String product_name,int quantity) {
         this.fridge_id = fridge_id;
         this.product_id = product_id;
@@ -38,8 +32,6 @@ public class FridgeProduct {
         System.out.println("+++constructor");
     }
 
-
-
     public FridgeProduct(int product_id, String product_name) {
         this.product_id = product_id;
         this.product_name = product_name;
@@ -47,7 +39,6 @@ public class FridgeProduct {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fridge_id")
     public int getFridge_id() {
         return fridge_id;
@@ -56,7 +47,7 @@ public class FridgeProduct {
     public void setFridge_id(int fridge_id) {
         this.fridge_id = fridge_id;
     }
-
+    @Id
     @Column(name = "product_id")
     public int getProduct_id() {
         return product_id;
@@ -75,6 +66,7 @@ public class FridgeProduct {
         this.quantity = quantity;
     }
 
+    @Transient
     //@Column(name = "product_name", insertable = false)
     public String getProduct_name() {
         return product_name;
