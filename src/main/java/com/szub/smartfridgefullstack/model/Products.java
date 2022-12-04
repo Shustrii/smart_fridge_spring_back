@@ -21,38 +21,60 @@ public class Products {
     private String name;
 
     @Column(name = "measure")
-    private String measure;
+    private int measure;
 
     @Column(name = "cost")
     private int cost;
 
+    @Column(name = "pr_type_id")
+    private int pr_type_id;
 
     public Products() {
     }
 
-    public Products(String name, String measure, int cost) {
+    public Products(String name, int measure, int cost) {
         this.name = name;
         this.measure = measure;
         this.cost = cost;
 
     }
 
-    public Products(int id, String name, String measure, int cost) {
+    public Products(int id, String name, int measure, int cost) {
         this.id = id;
         this.name = name;
         this.measure = measure;
         this.cost = cost;
     }
 
-    public Products(String name, String measure, int cost, Set<Fridge> fridges) {
+    public Products(String name, int measure, int cost, Set<Fridge> fridges) {
         this.name = name;
         this.measure = measure;
         this.cost = cost;
         this.fridges = fridges;
     }
 
+    public Products(int id, String name, int measure, int cost, Set<Recipe> recipes) {
+        this.id = id;
+        this.name = name;
+        this.measure = measure;
+        this.cost = cost;
+        this.recipes = recipes;
+    }
+
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Fridge> fridges;
+
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    private Set<Recipe> recipes;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "measure_id", referencedColumnName = "id")
+//    private Measure measure;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pr_type_id", referencedColumnName = "id")
+    private ProductType productType;
+
 
     public int getId() {
         return id;
@@ -70,11 +92,11 @@ public class Products {
         this.name = name;
     }
 
-    public String getMeasure() {
+    public int getMeasure() {
         return measure;
     }
 
-    public void setMeasure(String measure) {
+    public void setMeasure(int measure) {
         this.measure = measure;
     }
 
@@ -84,5 +106,24 @@ public class Products {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public int getPr_type_id() {
+        return pr_type_id;
+    }
+
+    public void setPr_type_id(int pr_type_id) {
+        this.pr_type_id = pr_type_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Products{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", measure='" + measure + '\'' +
+                ", cost=" + cost +
+                ", fridges=" + fridges +
+                '}';
     }
 }

@@ -38,6 +38,19 @@ public class FridgeProduct {
         System.out.println("+++constructor++++++");
     }
 
+    public FridgeProduct(int fridge_id, int product_id) {
+        this.fridge_id = fridge_id;
+        this.product_id = product_id;
+        System.out.println("+++constructor delete++++++");
+    }
+
+    public FridgeProduct(int fridge_id, int product_id, int quantity) {
+        this.fridge_id = fridge_id;
+        this.product_id = product_id;
+        this.quantity = quantity;
+
+    }
+
     @Id
     @Column(name = "fridge_id")
     public int getFridge_id() {
