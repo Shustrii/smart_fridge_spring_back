@@ -32,4 +32,8 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
 
     @Query("SELECT new Products (p.id ,p.name, p.measure, p.cost) FROM Products p where p.id = :id")
     Products fetchAllListProductsById(int id);
+
+    @Query("SELECT new Products (p.name, p.cost, m.name, pt.name) FROM ProductType pt inner join Products p on p.pr_type_id = pt.id inner join Measure m on pt.measure_id = m.id")
+    List<Products> fetchAllProductsWithType();
+
 }

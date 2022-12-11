@@ -22,9 +22,8 @@ public class ProductType implements Serializable {
     @OneToOne(mappedBy = "productType")
     private Products products;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "measure_id", referencedColumnName = "id")
+    @OneToOne
+    @PrimaryKeyJoinColumn
     private Measure measure;
 
     public ProductType() {

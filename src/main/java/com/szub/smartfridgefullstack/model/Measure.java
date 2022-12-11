@@ -22,10 +22,8 @@ public class Measure implements Serializable {
     private String value;
 
     @OneToOne(mappedBy = "measure")
-    private ProductToRecipe productToRecipes;
-
-    @OneToOne(mappedBy = "measure")
     private ProductType productType;
+
 
     public Measure() {
     }

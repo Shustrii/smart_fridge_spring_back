@@ -19,7 +19,7 @@ import java.util.List;
 public interface ProductToRecipeRepository extends JpaRepository<ProductToRecipe, Long> {
 
 
-    @Query("SELECT new ProductToRecipe (ptr.recipes_id, ptr.product_id, p.name, ptr.quantity) FROM Products p inner join ProductToRecipe ptr on p.id = ptr.product_id where ptr.recipes_id = :id")
+    @Query("SELECT new ProductToRecipe (ptr.recipes_id, ptr.product_id, p.name, m.name, ptr.quantity) FROM Products p inner join ProductToRecipe ptr on p.id = ptr.product_id inner join Measure m on ptr.measure_id = m.id where ptr.recipes_id = :id")
     List<ProductToRecipe> fetchAllProductsForRecipeById(int id);
 
 

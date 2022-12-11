@@ -29,6 +29,10 @@ public class Products {
     @Column(name = "pr_type_id")
     private int pr_type_id;
 
+    private String prtName;
+    private String measureName;
+
+
     public Products() {
     }
 
@@ -61,18 +65,22 @@ public class Products {
         this.recipes = recipes;
     }
 
+    public Products(String name,int cost, String measureName, String prtName) {
+        this.name = name;
+        this.cost = cost;
+        this.measureName = measureName;
+        this.prtName = prtName;
+    }
+
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Fridge> fridges;
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Recipe> recipes;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "measure_id", referencedColumnName = "id")
-//    private Measure measure;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pr_type_id", referencedColumnName = "id")
+    @OneToOne
+    @PrimaryKeyJoinColumn
     private ProductType productType;
 
 
@@ -114,6 +122,14 @@ public class Products {
 
     public void setPr_type_id(int pr_type_id) {
         this.pr_type_id = pr_type_id;
+    }
+
+    public String getPrtName() {
+        return prtName;
+    }
+
+    public void setPrtName(String prtName) {
+        this.prtName = prtName;
     }
 
     @Override

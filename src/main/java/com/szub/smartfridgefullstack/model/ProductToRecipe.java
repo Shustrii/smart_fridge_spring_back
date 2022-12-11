@@ -16,14 +16,16 @@ public class ProductToRecipe {
 
     private String recipe_name;
     private String product_name;
+    private String measure_name;
 
     public ProductToRecipe() {
     }
 
-    public ProductToRecipe(int recipes_id, int product_id,  String product_name, int quantity) {
+    public ProductToRecipe(int recipes_id, int product_id,  String product_name, String measure_name, int quantity) {
         this.recipes_id = recipes_id;
         this.product_id = product_id;
         this.product_name = product_name;
+        this.measure_name = measure_name;
         this.quantity = quantity;
 
     }
@@ -37,16 +39,9 @@ public class ProductToRecipe {
     }
 
 
-//    @ManyToMany(cascade = CascadeType.ALL )
-//    @JoinTable(
-//            name = "Measure",
-//            joinColumns = { @JoinColumn(name = "measure_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "id") }
-//    )
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "measure_id", referencedColumnName = "id")
-    private Measure measure;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private Measure measures;
 
 
 
