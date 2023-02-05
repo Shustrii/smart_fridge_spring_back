@@ -1,11 +1,7 @@
 package com.szub.smartfridgefullstack.service;
 
-import com.szub.smartfridgefullstack.model.Fridge;
-import com.szub.smartfridgefullstack.model.FridgeProduct;
-import com.szub.smartfridgefullstack.model.Products;
-import com.szub.smartfridgefullstack.repository.FridgeProductsRepository;
-import com.szub.smartfridgefullstack.repository.FridgeRepository;
-import com.szub.smartfridgefullstack.repository.ProductsRepository;
+import com.szub.smartfridgefullstack.model.*;
+import com.szub.smartfridgefullstack.repository.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,10 +16,9 @@ public class FridgeService {
     private FridgeRepository fridgeRepository;
 
     @Resource
-    private ProductsRepository productsRepository;
-
-    @Resource
     private FridgeProductsRepository fridgeProductsRepository;
+
+
 
     @PersistenceContext
     private EntityManager em;
@@ -40,19 +35,29 @@ public class FridgeService {
     }
 
 
-    public List<Products> getAllProducts(){
-        List<Products> list = productsRepository.fetchAllProducts();
+    public List<FridgeProduct> getProductsNotInFridge(int id){
+        List<FridgeProduct> list = fridgeRepository.fetchProductsNotInFridge(id);
         return list;
     }
 
-    public List<Products> getProductsNotInFridge(){
-        List<Products> list = fridgeRepository.fetchProductsNotInFridge();
+    public FridgeProduct getProductById(int id){
+        FridgeProduct list = fridgeProductsRepository.fetchAllProductsById(id);
         return list;
     }
 
-    public List<FridgeProduct> getProductById(int id){
-        List<FridgeProduct> list = fridgeProductsRepository.fetchAllProductsById(id);
-        return list;
-    }
+
+//    public int updateProductCard(int fridgeId, int productId, int quantity ){
+//        int updatePr = fridgeProductsRepository.updateProductToFridge(fridgeId,productId,quantity);
+//        return updatePr;
+//    }
+
+//    public int deleteProductFromFr(int fridgeId, int productId){
+//        int list = fridgeProductsRepository.deleteProductFromFridge(fridgeId,productId);
+//        return list;
+//    }
+
+
+
+
 
 }

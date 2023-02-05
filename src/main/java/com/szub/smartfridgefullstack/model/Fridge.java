@@ -5,19 +5,12 @@ package com.szub.smartfridgefullstack.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "fridge")
-@Getter
-@Setter
-@ToString
 
 public class Fridge {
 
@@ -26,6 +19,8 @@ public class Fridge {
     private int id;
 
     private String name;
+
+
 
     public Fridge() {
     }
@@ -51,7 +46,7 @@ public class Fridge {
             joinColumns = { @JoinColumn(name = "fridge_id") },
             inverseJoinColumns = { @JoinColumn(name = "product_id") }
     )
-    private Set<Products> products;
+    private Set<Product> products;
 
     public int getId() {
         return id;
@@ -69,4 +64,6 @@ public class Fridge {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
