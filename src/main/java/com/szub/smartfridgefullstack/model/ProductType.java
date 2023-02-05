@@ -20,7 +20,7 @@ public class ProductType implements Serializable {
 
 
     @OneToOne(mappedBy = "productType")
-    private Products products;
+    private Product product;
 
     @OneToOne
     @PrimaryKeyJoinColumn

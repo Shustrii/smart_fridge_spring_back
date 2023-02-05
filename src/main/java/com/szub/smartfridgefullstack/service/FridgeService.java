@@ -46,15 +46,15 @@ public class FridgeService {
     }
 
 
-    public int updateProductCard(int fridgeId, int productId, int quantity ){
-        int updatePr = fridgeProductsRepository.updateProductToFridge(fridgeId,productId,quantity);
-        return updatePr;
-    }
+//    public int updateProductCard(int fridgeId, int productId, int quantity ){
+//        int updatePr = fridgeProductsRepository.updateProductToFridge(fridgeId,productId,quantity);
+//        return updatePr;
+//    }
 
-    public int deleteProductFromFr(int fridgeId, int productId){
-        int list = fridgeProductsRepository.deleteProductFromFridge(fridgeId,productId);
-        return list;
-    }
+//    public int deleteProductFromFr(int fridgeId, int productId){
+//        int list = fridgeProductsRepository.deleteProductFromFridge(fridgeId,productId);
+//        return list;
+//    }
 
 
 

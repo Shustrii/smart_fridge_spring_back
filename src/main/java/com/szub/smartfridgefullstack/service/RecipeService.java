@@ -1,5 +1,6 @@
 package com.szub.smartfridgefullstack.service;
 
+import com.szub.smartfridgefullstack.model.Measure;
 import com.szub.smartfridgefullstack.model.ProductToRecipe;
 import com.szub.smartfridgefullstack.model.Recipe;
 import com.szub.smartfridgefullstack.repository.ProductToRecipeRepository;
@@ -25,15 +26,15 @@ public class RecipeService {
         return list;
     }
 
-    public int updateRecipe(int id, String recipe ){
-        int update = recipeRepository.updateRecipe(id, recipe) ;
-        return update;
-    }
+//    public int updateRecipe(int id, String recipe ){
+//        int update = recipeRepository.updateRecipe(id, recipe) ;
+//        return update;
+//    }
 
-    public int deleteRecipe(int id){
-        int list = recipeRepository.deleteRecipe(id);
-        return list;
-    }
+//    public int deleteRecipe(int id){
+//        int list = recipeRepository.deleteRecipe(id);
+//        return list;
+//    }
 
     public Recipe getRecipeById(int id){
         Recipe recipe = recipeRepository.fetchAllRecipeById(id);
@@ -56,18 +57,40 @@ public class RecipeService {
     }
 
 
-    public int updateProductToRecipe(int recipesId, int productId, int quantity){
-        int update = productToRecipeRepository.updateProductToRecipe(recipesId, productId, quantity);
-        return update;
-    }
+//    public int updateProductToRecipe(int measureId, int productId, int quantity){
+//        int update = productToRecipeRepository.updateProductToRecipe(measureId, productId, quantity);
+//        return update;
+//    }
 
-    public int deleteProductFromRecipe(int recipesId, int productId){
-        int list = productToRecipeRepository.deleteProductFromRecipe(recipesId, productId);
+//    public int deleteProductFromRecipe(int recipesId, int productId){
+//        int list = productToRecipeRepository.deleteProductFromRecipe(recipesId, productId);
+//        return list;
+//    }
+
+    public ProductToRecipe getProductInRecipeById(int pId, int rId){
+        ProductToRecipe list = productToRecipeRepository.fetchProductById(pId, rId);
         return list;
     }
 
-    public ProductToRecipe getProductInRecipeById(int id){
-        ProductToRecipe list = productToRecipeRepository.fetchProductById(id);
+    //вынимание мер
+    public List<Measure> getMeasureByProductsId(int id){
+        List<Measure> list = productToRecipeRepository.fetchMeasureByProductId(id);
+        return list;
+
+    }
+
+    public List<ProductToRecipe> getPrNotInRecipe(int id){
+        List<ProductToRecipe> list = productToRecipeRepository.fetchProductsNotInRecipe(id);
+        return list;
+    }
+
+    public List<ProductToRecipe> getProductsNotInRecipe(int id){
+        List<ProductToRecipe> list = productToRecipeRepository.fetchPrNotInRecipe(id);
+        return list;
+    }
+
+    public List<ProductToRecipe> getPrNotEnoughInRecipe(int id){
+        List<ProductToRecipe> list = productToRecipeRepository.fetchPrNotEnoughInRecipe(id);
         return list;
     }
 }

@@ -20,6 +20,8 @@ public class Measure implements Serializable {
 
     @Column(name = "value")
     private String value;
+    @Column(name = "value2")
+    private int value2;
 
     @OneToOne(mappedBy = "measure")
     private ProductType productType;
@@ -33,6 +35,13 @@ public class Measure implements Serializable {
         this.name = name;
         this.measure_id = measure_id;
         this.value = value;
+    }
+
+    public Measure(int id, String name, int measure_id) {
+        this.id = id;
+        this.name = name;
+        this.measure_id = measure_id;
+
     }
 
     public int getId() {
@@ -59,12 +68,21 @@ public class Measure implements Serializable {
         this.measure_id = measure_id;
     }
 
+
     public String getValue() {
         return value;
     }
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public int getValue2() {
+        return value2;
+    }
+
+    public void setValue2(int value2) {
+        this.value2 = value2;
     }
 
     @Override

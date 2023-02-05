@@ -1,10 +1,10 @@
 package com.szub.smartfridgefullstack.controller;
 
+import com.szub.smartfridgefullstack.model.Measure;
 import com.szub.smartfridgefullstack.model.ProductToRecipe;
 import com.szub.smartfridgefullstack.model.Recipe;
 import com.szub.smartfridgefullstack.repository.ProductToRecipeRepository;
 import com.szub.smartfridgefullstack.repository.RecipeRepository;
-import com.szub.smartfridgefullstack.service.FridgeService;
 import com.szub.smartfridgefullstack.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,18 +43,16 @@ public class RecipeController {
     }
 
 
-    @PutMapping("/recipe_update/{id}")
-    public int updateRecipe(@RequestBody Recipe recipe){
+    @PutMapping("/recipe_update")
+    public Recipe updateRecipe(@RequestBody Recipe recipe){
         System.out.println("======> product_update" + recipe);
-        int update = recipeService.updateRecipe(recipe.getId(), recipe.getRecipe());
-        return update;
+        return recipeRepository.save(recipe);
     }
 
     @DeleteMapping("/delete_recipe")
-    public int deleteRecipe(@RequestBody Recipe recipe){
+    public void deleteRecipe(@RequestBody Recipe recipe){
         System.out.println("=====>>>" + recipe);
-        int list = recipeService.deleteRecipe(recipe.getId());
-        return list;
+        recipeRepository.delete(recipe);
     }
 
     @GetMapping("/recipe_by_id/{id}")
@@ -68,8 +66,6 @@ public class RecipeController {
 
 
     //продукты в рецептах
-
-    //left join
     @GetMapping("/products_to_recipe/{id}")
     public ResponseEntity<List<ProductToRecipe>> getProductsToRecipeById(@PathVariable String id){
         System.out.println("++ getProductsToRecipeById");
@@ -78,25 +74,52 @@ public class RecipeController {
         return ResponseEntity.ok(list);
     }
 
-    @PutMapping("/product_in_recipe_update")
-    public int updateProductToRecipe(@RequestBody ProductToRecipe productToRecipe){
-        System.out.println("======> product_update" + productToRecipe);
-        int update = recipeService.updateProductToRecipe(productToRecipe.getRecipes_id(),productToRecipe.getProduct_id(), productToRecipe.getQuantity());
-        return update;
-    }
+
 
     @DeleteMapping("/delete_product_from_recipe")
-    public int deleteProductFromRecipe(@RequestBody ProductToRecipe productToRecipe){
+    public void deleteProductFromRecipe(@RequestBody ProductToRecipe productToRecipe){
         System.out.println("=====>>>> delete_product_from_fridge >>>" + productToRecipe);
         System.out.println(">>> deleteProductFromFridge FR-ID:"+productToRecipe.getRecipes_id()+" PR-ID:"+productToRecipe.getProduct_id());
-        int list = recipeService.deleteProductFromRecipe(productToRecipe.getRecipes_id(), productToRecipe.getProduct_id());
-        return list;
+        productToRecipeRepository.delete(productToRecipe);
     }
 
-    @GetMapping("/product_in_recipe/{id}")
-    public ResponseEntity<ProductToRecipe> getProductInRecipeById(@PathVariable Long id){
-        ProductToRecipe list = recipeService.getProductInRecipeById(Math.toIntExact(id));
+    @GetMapping("/product_in_recipe")
+    public ResponseEntity<ProductToRecipe> getProductInRecipeById(
+            @RequestParam("p_id") String p_id, @RequestParam("r_id") String r_id){
+        ProductToRecipe list = recipeService.getProductInRecipeById(Integer.parseInt(p_id), Integer.parseInt(r_id));
         return  ResponseEntity.ok(list);
     }
 
+    //меры по id
+    @GetMapping("/measure/{id}")
+    public ResponseEntity<List<Measure>> getMeasureByProduct(@PathVariable int id){
+        List<Measure> list = recipeService.getMeasureByProductsId(id);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/product_not_in_recipe/{id}")
+    public ResponseEntity<List<ProductToRecipe>> getPrNotInRecipe(@PathVariable int id){
+        List<ProductToRecipe> list = recipeService.getPrNotInRecipe(id);
+        return ResponseEntity.ok(list);
+    }
+
+    @PostMapping("/save/product")
+    public ProductToRecipe saveProducts(@RequestBody ProductToRecipe productToRecipe){
+        System.out.println(" ++saveProducts: "+productToRecipe);
+        return productToRecipeRepository.save(productToRecipe);
+    }
+
+    @PutMapping("/product_in_recipe_update")
+    public ProductToRecipe updateProductToRecipe(@RequestBody ProductToRecipe productToRecipe){
+        System.out.println("======> product_update" + productToRecipe);
+        return productToRecipeRepository.save(productToRecipe);
+    }
+
+    @GetMapping("/validate_recipe/{id}")
+    public ResponseEntity<List<ProductToRecipe>> getPrNotEnoughInRec(@PathVariable int id){
+        List<ProductToRecipe> list = recipeService.getProductsNotInRecipe(id);
+        List<ProductToRecipe> list2 = recipeService.getPrNotEnoughInRecipe(id);
+        list.addAll(list2);
+        return ResponseEntity.ok(list);
+    }
 }

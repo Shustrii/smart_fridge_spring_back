@@ -1,5 +1,7 @@
 package com.szub.smartfridgefullstack.model;
 
+import antlr.collections.List;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -21,14 +23,13 @@ public class Recipe {
         this.recipe = recipe;
     }
 
-
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "product_to_recipe",
             joinColumns = {@JoinColumn(name = "recipes_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_id")}
     )
-    private Set<Products> products;
+    private Set<Product> products;
 
     public int getId() {
         return id;

@@ -1,14 +1,14 @@
 package com.szub.smartfridgefullstack.controller;
 
-import com.szub.smartfridgefullstack.model.Products;
+import com.szub.smartfridgefullstack.model.Product;
 import com.szub.smartfridgefullstack.repository.ProductsRepository;
-import com.szub.smartfridgefullstack.service.FridgeService;
 import com.szub.smartfridgefullstack.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -24,47 +24,47 @@ public class ProductController {
 
     //справочник продуктов
     @GetMapping("/all/products")
-    public List<Products> getAllProducts(){
+    public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
 
     @GetMapping("/all/pr_type")
-    public List<Products> getAllProdWithType(){
+    public List<Product> getAllProdWithType(){
         return productService.selectAllProductsWithType();
     }
 
     @GetMapping("/product_by_id/{id}")
-    public ResponseEntity<Products> getProductByIdInList(@PathVariable Long id){
+    public ResponseEntity<Product> getProductById(@PathVariable int id){
         //Products products = productsRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product not exist with id :"+id));
-        Products products = productsRepository.fetchAllListProductsById(Math.toIntExact(id));
-        System.out.println(">>> getProductByIdInList " + products);
-        return ResponseEntity.ok(products);
+        Product product = productsRepository.findById(id).get();
+        //Optional<Product> product = productsRepository.findById(id);
+        System.out.println(">>> getProductByIdInList " + product);
+        return ResponseEntity.ok(product);
     }
 
-
-
     @DeleteMapping("/delete_product")
-    public int deleteProduct(@RequestBody Products products){
-        System.out.println("=====>>>" + products);
-        int list = productService.deleteProduct(products.getId());
-        return list;
+    public void deleteProduct(@RequestBody Product product){
+        System.out.println("=====>>>" + product);
+        //int list = productService.deleteProduct(products.getId());
+        //return list;
+        productsRepository.delete(product);
     }
 
     //добавление нового продукта в журнал продуктов
     @PostMapping("/add/product")
-    public Products addNewProduct(@RequestBody Products products){
-        System.out.println("======>>>"+ products);
+    public Product addProduct(@RequestBody Product product){
+        System.out.println("======>>>"+ product);
         System.out.println("+++++ addNewProduct");
-        return productsRepository.save(products);
+        return productsRepository.save(product);
     }
 
-
     @PutMapping("/product_update/{id}")
-    public int updateInProductList(@RequestBody Products products){
-        System.out.println("======> product_update" + products);
-        int update = productService.updateProduct(products.getId(),products.getName(),products.getMeasure(),products.getCost());
-
-        return update;
+    public Product updateProduct(@RequestBody Product products){
+        System.out.println("======> product_update: " + products);
+        //int update = productService.updateProduct(products.getId(),products.getName(),products.getPr_type_id(), products.getMeasureName());
+        //return update;
+        Product product = productsRepository.save(products);
+        return productsRepository.fetchProductWithTypeById(product.getId());
     }
 
 }

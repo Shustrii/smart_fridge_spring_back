@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products")
-public class Products {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,54 +23,74 @@ public class Products {
     @Column(name = "measure")
     private int measure;
 
-    @Column(name = "cost")
-    private int cost;
-
     @Column(name = "pr_type_id")
     private int pr_type_id;
 
+    //@ManyToMany
+    //private Recipe recipe;
+    @Transient
     private String prtName;
+    @Transient
     private String measureName;
+    @Transient
+    private int measure_id;
+    @Transient
+    private int measure_measure_id;
 
-
-    public Products() {
+    public Product() {
+    }
+    public Product(int measure_id, int measure_measure_id, String measureName){
+        this.measure_id = measure_id;
+        this.measure_measure_id = measure_measure_id;
+        this.measureName = measureName;
     }
 
-    public Products(String name, int measure, int cost) {
+    public Product(String name, int pr_type_id) {
         this.name = name;
-        this.measure = measure;
-        this.cost = cost;
-
+        this.pr_type_id = pr_type_id;
     }
 
-    public Products(int id, String name, int measure, int cost) {
+    public Product(int id, String name, int measure) {
         this.id = id;
         this.name = name;
         this.measure = measure;
-        this.cost = cost;
+
     }
 
-    public Products(String name, int measure, int cost, Set<Fridge> fridges) {
+    public Product(String name, int measure, Set<Fridge> fridges) {
         this.name = name;
         this.measure = measure;
-        this.cost = cost;
         this.fridges = fridges;
     }
 
-    public Products(int id, String name, int measure, int cost, Set<Recipe> recipes) {
+    public Product(int id, String name, int measure, Set<Recipe> recipes) {
         this.id = id;
         this.name = name;
         this.measure = measure;
-        this.cost = cost;
         this.recipes = recipes;
     }
 
-    public Products(String name,int cost, String measureName, String prtName) {
+    public Product(int id, String name, int measure, int pr_type_id, String prtName, String measureName) {
+        this.id = id;
         this.name = name;
-        this.cost = cost;
+        this.measure = measure;
+
+        this.pr_type_id = pr_type_id;
+        this.prtName = prtName;
+        this.measureName = measureName;
+    }
+
+
+
+    public Product(int id, String name, int pr_type_id, String measureName, String prtName) {
+        this.id = id;
+        this.name = name;
+        this.pr_type_id = pr_type_id;
         this.measureName = measureName;
         this.prtName = prtName;
     }
+
+
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Fridge> fridges;
@@ -108,14 +128,6 @@ public class Products {
         this.measure = measure;
     }
 
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
     public int getPr_type_id() {
         return pr_type_id;
     }
@@ -132,14 +144,39 @@ public class Products {
         this.prtName = prtName;
     }
 
+    public String getMeasureName() {
+        return measureName;
+    }
+
+    public void setMeasureName(String measureName) {
+        this.measureName = measureName;
+    }
+
+    public int getMeasure_id() {
+        return measure_id;
+    }
+
+    public void setMeasure_id(int measure_id) {
+        this.measure_id = measure_id;
+    }
+
+    public int getMeasure_measure_id() {
+        return measure_measure_id;
+    }
+
+    public void setMeasure_measure_id(int measure_measure_id) {
+        this.measure_measure_id = measure_measure_id;
+    }
+
     @Override
     public String toString() {
-        return "Products{" +
+        return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", measure='" + measure + '\'' +
-                ", cost=" + cost +
-                ", fridges=" + fridges +
+                ", pr_type_id=" + pr_type_id +
+                ", prtName=" + prtName +
+                ", measureName=" + measureName +
                 '}';
     }
 }

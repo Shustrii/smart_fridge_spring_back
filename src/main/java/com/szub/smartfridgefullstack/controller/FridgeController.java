@@ -28,14 +28,14 @@ public class    FridgeController {
     private FridgeService fridgeService;
 
     //холодильник
-    @PostMapping("/all/products")
-    public FridgeProduct postFridgeProducts(@RequestBody FridgeProduct request) {
-        System.out.println("=====>>>>" + request);
-        System.out.println("++ getFridgeLeftJoin");
-        //return new ResponseEntity<List<Fridge>>(joinQueryService.getFridgeLeftJoin(), HttpStatus.OK);
-        //return ResponseEntity.ok(request);
-        return fridgeProductsRepository.save(request);
-    }
+//    @PostMapping("/all/products")
+//    public FridgeProduct postFridgeProducts(@RequestBody FridgeProduct request) {
+//        System.out.println("=====>>>>" + request);
+//        System.out.println("++ getFridgeLeftJoin");
+//        //return new ResponseEntity<List<Fridge>>(joinQueryService.getFridgeLeftJoin(), HttpStatus.OK);
+//        //return ResponseEntity.ok(request);
+//        return fridgeProductsRepository.save(request);
+//    }
 
 
     @GetMapping("/all/products/{id}")
@@ -52,34 +52,40 @@ public class    FridgeController {
         return ResponseEntity.ok(list);
     }
     @PostMapping("/save/fridge")
-    public Fridge saveFridge(@RequestBody Fridge fridge){
-//        System.out.println("++ saveFridge");
+    public FridgeProduct saveFridgeProduct(@RequestBody FridgeProduct fridgeProduct){
+        System.out.println("++ saveFridgeProduct: " + fridgeProduct);
 //        sessionFactory.getCurrentSession().saveOrUpdate(fridge);
 //        return fridge;
-        return fridgeRepository.save(fridge);
+        return fridgeProductsRepository.save(fridgeProduct);
     }
 
     @PutMapping("/product_quantity_update")
-    public int updateProduct(@RequestBody FridgeProduct fridgeProduct){
+    public FridgeProduct updateProduct(@RequestBody FridgeProduct fridgeProduct){
         System.out.println("=====>>>> product_quantity_update >>>" + fridgeProduct);
-        int update = fridgeService.updateProductCard(fridgeProduct.getFridge_id(), fridgeProduct.getProduct_id(), fridgeProduct.getQuantity());
+        //int update = fridgeService.updateProductCard(fridgeProduct.getFridge_id(), fridgeProduct.getProduct_id(), fridgeProduct.getQuantity());
         System.out.println("=====>>>>" + fridgeProduct);
-        return update; //ResponseEntity.ok(update);
+        //return update;
+        return fridgeProductsRepository.save(fridgeProduct);
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<FridgeProduct> getProductById(@PathVariable Long id){
-        FridgeProduct list = fridgeService.getProductById(Math.toIntExact(id));
-        return  ResponseEntity.ok(list);
+    public ResponseEntity<FridgeProduct> getProductById(@PathVariable int id){
+        FridgeProductId fridgeProductId = new FridgeProductId(1, id);
+        FridgeProduct fridgeProduct = fridgeProductsRepository.findById(fridgeProductId).get();
+        return ResponseEntity.ok(fridgeProduct);
     }
 
 
     @DeleteMapping("/delete_product_from_fridge")
-    public int deleteProductFromFridge(@RequestBody FridgeProduct fridgeProduct){
-        System.out.println("=====>>>> delete_product_from_fridge >>>" + fridgeProduct);
-        System.out.println(">>> deleteProductFromFridge FR-ID:"+fridgeProduct.getFridge_id()+" PR-ID:"+fridgeProduct.getProduct_id());
-        int list = fridgeService.deleteProductFromFr(fridgeProduct.getFridge_id(), fridgeProduct.getProduct_id());
-        return list;
+    public void deleteProductFromFridge(@RequestBody FridgeProduct fridgeProduct){
+        //System.out.println("=====>>>> delete_product_from_fridge >>>" + fridgeProductId);
+//        System.out.println(">>> deleteProductFromFridge FR-ID:"+fridgeProduct.getFridge_id()+" PR-ID:"+fridgeProduct.getProduct_id());
+//        int list = fridgeService.deleteProductFromFr(fridgeProduct.getFridge_id(), fridgeProduct.getProduct_id());
+//        return list;
+       // FridgeProductId fridgeProductId = new FridgeProductId(fridgeProduct.getFridge_id(), fridgeProduct.getProduct_id());
+
+        fridgeProductsRepository.delete(fridgeProduct);
+
     }
 
 
