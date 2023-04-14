@@ -67,8 +67,8 @@ public class RecipeService {
 //        return list;
 //    }
 
-    public ProductToRecipe getProductInRecipeById(int pId, int rId){
-        ProductToRecipe list = productToRecipeRepository.fetchProductById(pId, rId);
+    public ProductToRecipe getProductInRecipeById(int id){
+        ProductToRecipe list = productToRecipeRepository.fetchProductById(id);
         return list;
     }
 

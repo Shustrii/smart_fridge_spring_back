@@ -34,6 +34,11 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @GetMapping("/all/ready_recipes")
+    public List<Recipe> getAllReadyRecipe(){
+        return recipeRepository.fetchReadyRecipes();
+    }
+
 
     @PostMapping("/add/recipe")
     public Recipe addNewRecipe(@RequestBody Recipe recipe){
@@ -84,9 +89,8 @@ public class RecipeController {
     }
 
     @GetMapping("/product_in_recipe")
-    public ResponseEntity<ProductToRecipe> getProductInRecipeById(
-            @RequestParam("p_id") String p_id, @RequestParam("r_id") String r_id){
-        ProductToRecipe list = recipeService.getProductInRecipeById(Integer.parseInt(p_id), Integer.parseInt(r_id));
+    public ResponseEntity<ProductToRecipe> getProductInRecipeById(@PathVariable int id){
+        ProductToRecipe list = recipeService.getProductInRecipeById(id);
         return  ResponseEntity.ok(list);
     }
 

@@ -5,13 +5,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "product_to_recipe")
-@IdClass(RecipeProductId.class)
 public class ProductToRecipe {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Column(name = "recipes_id")
     private int recipes_id;
-    @Id
+
     @Column(name = "product_id")
     private int product_id;
     @Column(name = "measure_id")
@@ -39,7 +42,8 @@ public class ProductToRecipe {
     public ProductToRecipe() {
     }
 
-    public ProductToRecipe(int recipes_id, int product_id,  String product_name, int quantity) {
+    public ProductToRecipe(int id, int recipes_id, int product_id,  String product_name, int quantity) {
+        this.id = id;
         this.recipes_id = recipes_id;
         this.product_id = product_id;
         this.product_name = product_name;
@@ -47,7 +51,8 @@ public class ProductToRecipe {
 
     }
 ///
-    public ProductToRecipe( int product_id, int recipes_id, int measure_id, int quantity, String product_name, String measure_name) {
+    public ProductToRecipe(int id, int product_id, int recipes_id, int measure_id, int quantity, String product_name, String measure_name) {
+        this.id = id;
         this.product_id = product_id;
         this.recipes_id = recipes_id;
         this.measure_id = measure_id;
@@ -64,28 +69,14 @@ public class ProductToRecipe {
 
     }
 
-//    public ProductToRecipe(int product_id , String product_name , int quantity , String measure_name ,int recipes_id) {
-//        this.recipes_id = recipes_id;
-//        this.quantity = quantity;
-//        this.product_id = product_id;
-//        this.product_name = product_name;
-//        this.measure_name = measure_name;
-//    }
 
-//    public ProductToRecipe(int product_id_id , String product_name , int quantity, String measure_name ,int recipes_id) {
-//        this.recipes_id = recipes_id;
-//        this.quantity = quantity;
-//        this.product_id_id = product_id_id;
-//        this.product_name = product_name;
-//        this.measure_name = measure_name;
-//    }
+    public int getId() {
+        return id;
+    }
 
-    //    @OneToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    private Measure measures;
-
-
-
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getRecipes_id() {
         return recipes_id;
@@ -190,12 +181,19 @@ public class ProductToRecipe {
     @Override
     public String toString() {
         return "ProductToRecipe{" +
-                "recipes_id=" + recipes_id +
+                "id=" + id +
+                ", recipes_id=" + recipes_id +
                 ", product_id=" + product_id +
                 ", measure_id=" + measure_id +
                 ", quantity=" + quantity +
+                ", product_id_id=" + product_id_id +
+                ", recipe_name='" + recipe_name + '\'' +
                 ", product_name='" + product_name + '\'' +
                 ", measure_name='" + measure_name + '\'' +
+                ", measure_id_id=" + measure_id_id +
+                ", measure_measure_id=" + measure_measure_id +
+                ", value2=" + value2 +
+                ", f_quantity=" + f_quantity +
                 '}';
     }
 }

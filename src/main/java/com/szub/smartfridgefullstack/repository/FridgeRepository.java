@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface FridgeRepository extends JpaRepository<Fridge, Integer> {
 
-    @Query("SELECT new FridgeProduct(fp.fridge_id, fp.product_id, p.name, fp.quantity, fp.measure_id, m.id, m.name) FROM Product p inner join FridgeProduct fp on p.id = fp.product_id inner join Measure m on m.id = fp.measure_id where fp.fridge_id = :id")
+    @Query("SELECT new FridgeProduct(fp.id, fp.fridge_id, fp.product_id, p.name, fp.quantity, fp.measure_id, m.id, m.name) FROM Product p inner join FridgeProduct fp on p.id = fp.product_id inner join Measure m on m.id = fp.measure_id where fp.fridge_id = :id")
     List<FridgeProduct> fetchAllProductsInFridgeById(int id);
 
     //@Query(value = "SELECT p FROM Products p WHERE p.id not in (SELECT f.product_id FROM FridgeProduct f where f.fridge_id=:id) ")

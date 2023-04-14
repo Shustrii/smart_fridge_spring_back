@@ -10,12 +10,16 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "fridge_products")
-@IdClass(FridgeProductId.class)
 public class FridgeProduct {
+
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Column(name = "fridge_id")
     private int fridge_id;
-    @Id
+
     @Column(name = "product_id")
     private int product_id;
     @Column(name = "quantity")
@@ -33,7 +37,8 @@ public class FridgeProduct {
     public FridgeProduct() {
     }
 
-    public FridgeProduct(int fridge_id, int product_id, String product_name,int quantity, int measure_id, int measure_id_id, String measure_name) {
+    public FridgeProduct(int id,int fridge_id, int product_id, String product_name,int quantity, int measure_id, int measure_id_id, String measure_name) {
+        this.id = id;
         this.fridge_id = fridge_id;
         this.product_id = product_id;
         this.product_name = product_name;
@@ -61,19 +66,14 @@ public class FridgeProduct {
         System.out.println("+++constructor++++++");
     }
 
-    public FridgeProduct(int fridge_id, int product_id) {
-        this.fridge_id = fridge_id;
-        this.product_id = product_id;
-        System.out.println("+++constructor delete++++++");
+
+    public int getId() {
+        return id;
     }
 
-    public FridgeProduct(int fridge_id, int product_id, int quantity) {
-        this.fridge_id = fridge_id;
-        this.product_id = product_id;
-        this.quantity = quantity;
-
+    public void setId(int id) {
+        this.id = id;
     }
-
 
     public int getFridge_id() {
         return fridge_id;
@@ -139,7 +139,8 @@ public class FridgeProduct {
     @Override
     public String toString() {
         return "FridgeProduct{" +
-                "fridge_id=" + fridge_id +
+                "id=" + id +
+                ", fridge_id=" + fridge_id +
                 ", product_id=" + product_id +
                 ", quantity=" + quantity +
                 ", measure_id=" + measure_id +

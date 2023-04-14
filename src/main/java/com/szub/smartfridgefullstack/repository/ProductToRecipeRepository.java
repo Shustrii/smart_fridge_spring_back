@@ -16,12 +16,12 @@ import java.util.List;
 public interface ProductToRecipeRepository extends JpaRepository<ProductToRecipe, Long> {
 
 
-    @Query("SELECT new ProductToRecipe(ptr.product_id, ptr.recipes_id, ptr.measure_id,ptr.quantity, p.name, m.name) FROM ProductToRecipe ptr join Product p on p.id = ptr.product_id " +
+    @Query("SELECT new ProductToRecipe(ptr.id, ptr.product_id, ptr.recipes_id, ptr.measure_id,ptr.quantity, p.name, m.name) FROM ProductToRecipe ptr join Product p on p.id = ptr.product_id " +
             "join Measure m on ptr.measure_id = m.id where ptr.recipes_id = :id")
     List<ProductToRecipe> fetchAllProductsForRecipeById(int id);
 
 
-    @Query("select new ProductToRecipe (pr.id, p2r.recipes_id, prm.id, p2r.quantity, pr.name, prm.name) " +
+    @Query("select new ProductToRecipe (p2r.id, pr.id, p2r.recipes_id, prm.id, p2r.quantity, pr.name, prm.name) " +
             "from Product pr " +
             "left join ProductType pt on pt.id = pr.pr_type_id " +
             "left join Measure prm on prm.id = pt.measure_id " +
@@ -33,7 +33,7 @@ public interface ProductToRecipeRepository extends JpaRepository<ProductToRecipe
 
 
 
-    @Query("select new ProductToRecipe (pr.id, p2r.recipes_id, prm.id, ((p2r.quantity * p2rm.value2)-(f.quantity * fm.value2)), pr.name, prm.name) " +
+    @Query("select new ProductToRecipe (p2r.id, pr.id, p2r.recipes_id, prm.id, ((p2r.quantity * p2rm.value2)-(f.quantity * fm.value2)), pr.name, prm.name) " +
             "from Product pr " +
             "left join ProductType pt on pt.id = pr.pr_type_id " +
             "left join Measure prm on prm.id = pt.measure_id " +
@@ -57,8 +57,11 @@ public interface ProductToRecipeRepository extends JpaRepository<ProductToRecipe
 //    @Query("delete from ProductToRecipe ptr where ptr.recipes_id=:recipes_id and ptr.product_id=:product_id ")
 //    int deleteProductFromRecipe(@Param("recipes_id") int recipesId, @Param("product_id") int productId);
 
-    @Query("SELECT new ProductToRecipe (ptr.recipes_id, ptr.product_id, p.name, ptr.quantity) FROM ProductToRecipe ptr inner join Product p on p.id = ptr.product_id where ptr.product_id = :p_id and ptr.recipes_id =:r_id")
-    ProductToRecipe fetchProductById(@Param("p_id") int pId, @Param("r_id") int rId);
+//    @Query("SELECT new ProductToRecipe (ptr.id, ptr.recipes_id, ptr.product_id, p.name, ptr.quantity) FROM ProductToRecipe ptr inner join Product p on p.id = ptr.product_id where ptr.product_id = :p_id and ptr.recipes_id =:r_id")
+//    ProductToRecipe fetchProductById(@Param("p_id") int pId, @Param("r_id") int rId);
+
+    @Query("SELECT new ProductToRecipe (ptr.id, ptr.recipes_id, ptr.product_id, p.name, ptr.quantity) FROM ProductToRecipe ptr inner join Product p on p.id = ptr.product_id where ptr.id = :id ")
+    ProductToRecipe fetchProductById(int id);
 
 //    @Modifying
 //    @Query("SELECT new ProductToRecipe (m.id, m.measure_id, m.name) from ProductToRecipe ptr join Measure m on m.measure_id=ptr.measure_id where ptr.product_id = :p_id and ptr.recipes_id = :r_id")

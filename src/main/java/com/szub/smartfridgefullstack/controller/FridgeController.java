@@ -70,8 +70,8 @@ public class    FridgeController {
 
     @GetMapping("/product/{id}")
     public ResponseEntity<FridgeProduct> getProductById(@PathVariable int id){
-        FridgeProductId fridgeProductId = new FridgeProductId(1, id);
-        FridgeProduct fridgeProduct = fridgeProductsRepository.findById(fridgeProductId).get();
+        //FridgeProductId fridgeProductId = new FridgeProductId(1, id);
+        FridgeProduct fridgeProduct = fridgeProductsRepository.findById(id).get();
         return ResponseEntity.ok(fridgeProduct);
     }
 
