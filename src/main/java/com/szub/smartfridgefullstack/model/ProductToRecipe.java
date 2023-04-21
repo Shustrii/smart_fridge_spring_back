@@ -1,6 +1,5 @@
 package com.szub.smartfridgefullstack.model;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -35,7 +34,7 @@ public class ProductToRecipe {
     @Transient
     private int measure_measure_id;
     @Transient
-    private int value2;
+    private int value;
     @Transient
     private int f_quantity;
 
@@ -50,7 +49,7 @@ public class ProductToRecipe {
         this.quantity = quantity;
 
     }
-///
+
     public ProductToRecipe(int id, int product_id, int recipes_id, int measure_id, int quantity, String product_name, String measure_name) {
         this.id = id;
         this.product_id = product_id;
@@ -162,12 +161,12 @@ public class ProductToRecipe {
         this.product_id_id = product_id_id;
     }
 
-    public int getValue2() {
-        return value2;
+    public int getValue() {
+        return value;
     }
 
-    public void setValue2(int value2) {
-        this.value2 = value2;
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public int getF_quantity() {
@@ -192,7 +191,7 @@ public class ProductToRecipe {
                 ", measure_name='" + measure_name + '\'' +
                 ", measure_id_id=" + measure_id_id +
                 ", measure_measure_id=" + measure_measure_id +
-                ", value2=" + value2 +
+                ", value=" + value +
                 ", f_quantity=" + f_quantity +
                 '}';
     }

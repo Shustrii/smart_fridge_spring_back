@@ -15,7 +15,8 @@ public class MeasureService {
     private MeasureRepository measureRepository;
 
     public List<Measure> getMeasures(){
-        List<Measure> list = measureRepository.fetchAllMeasures();
+        //List<Measure> list = measureRepository.fetchAllMeasures();
+        List<Measure> list = measureRepository.findAll();
         return list;
     }
 }

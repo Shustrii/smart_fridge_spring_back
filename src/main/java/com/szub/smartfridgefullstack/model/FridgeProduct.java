@@ -1,10 +1,8 @@
 package com.szub.smartfridgefullstack.model;
 
-
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLInsert;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -46,8 +44,6 @@ public class FridgeProduct {
         this.measure_id = measure_id;
         this.measure_id_id = measure_id_id;
         this.measure_name = measure_name;
-
-        System.out.println("+++constructor");
     }
 
     public FridgeProduct(int fridge_id, int product_id, String product_name,int quantity, int measure_id) {
@@ -56,16 +52,12 @@ public class FridgeProduct {
         this.product_name = product_name;
         this.quantity = quantity;
         this.measure_id = measure_id;
-        System.out.println("+++constructor");
     }
-
 
     public FridgeProduct(int product_id, String product_name) {
         this.product_id = product_id;
         this.product_name = product_name;
-        System.out.println("+++constructor++++++");
     }
-
 
     public int getId() {
         return id;
@@ -91,7 +83,6 @@ public class FridgeProduct {
         this.product_id = product_id;
     }
 
-
     public int getQuantity() {
         return quantity;
     }
@@ -108,8 +99,7 @@ public class FridgeProduct {
         this.measure_id = measure_id;
     }
 
-    //@Transient
-    //@Column(name = "product_name", insertable = false)
+
     public String getProduct_name() {
         return product_name;
     }
@@ -118,7 +108,7 @@ public class FridgeProduct {
         this.product_name = product_name;
     }
 
-    //@Transient
+
     public String getMeasure_name() {
         return measure_name;
     }
@@ -127,7 +117,7 @@ public class FridgeProduct {
         this.measure_name = measure_name;
     }
 
-   // @Transient
+
     public int getMeasure_id_id() {
         return measure_id_id;
     }

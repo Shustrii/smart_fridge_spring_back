@@ -1,10 +1,7 @@
 package com.szub.smartfridgefullstack.controller;
 
-
 import com.szub.smartfridgefullstack.model.Measure;
-import com.szub.smartfridgefullstack.model.ProductType;
 import com.szub.smartfridgefullstack.service.MeasureService;
-import com.szub.smartfridgefullstack.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +18,7 @@ public class MeasureController {
     @Autowired
     private MeasureService measureService;
 
-
-    @GetMapping("/all_measures")
+    @GetMapping("/measures")
     public List<Measure> getAllMeasure(){
         return measureService.getMeasures();
     }

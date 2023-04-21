@@ -5,10 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-
+//to remove ?
 public interface MeasureRepository extends JpaRepository<Measure, Long> {
 
-    @Modifying
-    @Query("SELECT new Measure (m.id, m.name, m.measure_id, m.value) FROM Measure m")
-    List<Measure> fetchAllMeasures();
 }

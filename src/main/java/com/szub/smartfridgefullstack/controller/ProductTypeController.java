@@ -1,8 +1,6 @@
 package com.szub.smartfridgefullstack.controller;
 
-
 import com.szub.smartfridgefullstack.model.ProductType;
-import com.szub.smartfridgefullstack.model.Recipe;
 import com.szub.smartfridgefullstack.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,8 +18,7 @@ public class ProductTypeController {
     @Autowired
     private ProductTypeService productTypeService;
 
-
-    @GetMapping("/all_types")
+    @GetMapping("/all_product_types")
     public List<ProductType> getAllTypes(){
         return productTypeService.getTypes();
     }

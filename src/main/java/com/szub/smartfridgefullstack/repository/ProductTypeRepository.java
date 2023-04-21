@@ -6,10 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-
+//to remove ?
 public interface ProductTypeRepository extends JpaRepository<ProductType, Long> {
 
-    @Modifying
-    @Query("SELECT new ProductType  (pt.id, pt.name, pt.measure_id) FROM ProductType pt")
-    List<ProductType> fetchAllTypes();
 }

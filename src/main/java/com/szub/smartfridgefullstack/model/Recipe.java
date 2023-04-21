@@ -1,7 +1,6 @@
 package com.szub.smartfridgefullstack.model;
 
 import antlr.collections.List;
-
 import javax.persistence.*;
 import java.util.Set;
 

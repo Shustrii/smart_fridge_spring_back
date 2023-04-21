@@ -1,17 +1,10 @@
 package com.szub.smartfridgefullstack.model;
 
-
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "fridge")
-
 public class Fridge {
 
     @Id
@@ -20,26 +13,16 @@ public class Fridge {
 
     private String name;
 
-
-
     public Fridge() {
     }
 
     public Fridge(int id, String name, int quantity) {
-        System.out.println("+++ Construct 1");
+        //System.out.println("+++ Construct 1");
         this.id = id;
         this.name = name;
     }
 
-//    public Fridge(int id, int quantity, int idOfProduct, String name, Products products) {
-//        System.out.println("+++ Construct 2");
-//        this.id = id;
-//        this.quantity = quantity;
-//        this.idOfProduct = idOfProduct;
-//        this.name = name;
-//        this.products = products;
-//    }
-
+    //// to review
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "Fridge_Products",

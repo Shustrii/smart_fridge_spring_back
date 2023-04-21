@@ -2,7 +2,7 @@ package com.szub.smartfridgefullstack.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "measure")
@@ -19,18 +19,15 @@ public class Measure implements Serializable {
     private int measure_id;
 
     @Column(name = "value")
-    private String value;
-    @Column(name = "value2")
-    private int value2;
+    private int value;
 
     @OneToOne(mappedBy = "measure")
     private ProductType productType;
 
-
     public Measure() {
     }
 
-    public Measure(int id, String name, int measure_id, String value) {
+    public Measure(int id, String name, int measure_id, int value) {
         this.id = id;
         this.name = name;
         this.measure_id = measure_id;
@@ -41,7 +38,6 @@ public class Measure implements Serializable {
         this.id = id;
         this.name = name;
         this.measure_id = measure_id;
-
     }
 
     public int getId() {
@@ -68,22 +64,9 @@ public class Measure implements Serializable {
         this.measure_id = measure_id;
     }
 
+    public int getValue() { return value; }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public int getValue2() {
-        return value2;
-    }
-
-    public void setValue2(int value2) {
-        this.value2 = value2;
-    }
+    public void setValue(int value) { this.value = value; }
 
     @Override
     public String toString() {
